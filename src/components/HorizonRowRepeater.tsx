@@ -78,18 +78,18 @@ function HorizonRow({ horizon, index, onUpdate, onDelete, isExpanded, onToggle, 
   const [rootSize, setRootSize] = useState("");
 
   return (
-    <Card className="border border-border">
+    <Card className="border border-border bg-white/70 backdrop-blur-sm">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <button
             onClick={onToggle}
-            className="flex items-center space-x-2 text-left flex-1"
+            className="flex items-center space-x-2 text-left flex-1 min-h-[44px] py-2"
           >
-            <GripVertical className="w-4 h-4 text-muted-foreground" />
-            <span className="font-medium">
-              {horizon.label || `Horizon ${index + 1}`}: {horizon.depthFrom}-{horizon.depthTo}cm
-              {horizon.texture && ` | ${horizon.texture}`}
-              {horizon.structureType && ` | ${horizon.structureType}`}
+            <GripVertical className="w-5 h-5 text-muted-foreground" />
+            <span className="font-medium text-[#795548]">
+              {horizon.label || `Horizon ${index + 1}`} • {horizon.depthFrom}-{horizon.depthTo}cm
+              {horizon.texture && ` • ${horizon.texture}`}
+              {horizon.structureType && ` • ${horizon.structureType}`}
             </span>
           </button>
           
@@ -115,21 +115,18 @@ function HorizonRow({ horizon, index, onUpdate, onDelete, isExpanded, onToggle, 
               value={horizon.label}
               onChange={(value) => onUpdate('label', value)}
               placeholder="e.g., Ap, A, E, Bt"
-              required
             />
             <TextField
               label="Depth From (cm)"
               type="number"
               value={horizon.depthFrom}
               onChange={(value) => onUpdate('depthFrom', parseInt(value) || 0)}
-              required
             />
             <TextField
               label="Depth To (cm)"
               type="number"
               value={horizon.depthTo}
               onChange={(value) => onUpdate('depthTo', parseInt(value) || 0)}
-              required
             />
           </div>
 
@@ -158,7 +155,6 @@ function HorizonRow({ horizon, index, onUpdate, onDelete, isExpanded, onToggle, 
               value={horizon.colour}
               onChange={(value) => onUpdate('colour', value)}
               options={MUNSELL_PRESETS}
-              required
             />
             <SelectField
               label="Mottles/Speckles"
@@ -176,7 +172,6 @@ function HorizonRow({ horizon, index, onUpdate, onDelete, isExpanded, onToggle, 
             onChange={(value) => onUpdate('texture', value)}
             options={TEXTURES}
             showOther={false}
-            required
           />
 
           {/* Structure */}
@@ -423,18 +418,18 @@ export default function HorizonRowRepeater({ title, horizons, onHorizonsChange }
   };
 
   return (
-    <Card>
+    <Card className="bg-white/50 backdrop-blur-sm border-[#795548]/20">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">{title}</CardTitle>
+          <CardTitle className="text-lg text-[#795548]">{title}</CardTitle>
           <div className="flex space-x-2">
             {horizons.length > 0 && (
-              <Button variant="outline" size="sm" onClick={copyLastHorizon}>
+              <Button variant="outline" size="sm" onClick={copyLastHorizon} className="h-11">
                 <Copy className="w-4 h-4 mr-1" />
                 Copy Last
               </Button>
             )}
-            <Button variant="outline" size="sm" onClick={addHorizon}>
+            <Button variant="outline" size="sm" onClick={addHorizon} className="h-11">
               <Plus className="w-4 h-4 mr-1" />
               Add Horizon
             </Button>
@@ -444,8 +439,9 @@ export default function HorizonRowRepeater({ title, horizons, onHorizonsChange }
       <CardContent className="space-y-4">
         {horizons.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
-            <p>No horizons added yet.</p>
-            <Button variant="outline" onClick={addHorizon} className="mt-4">
+            <p className="mb-4">No horizons added yet</p>
+            <p className="text-sm mb-4">Add soil horizons to describe the profile layers</p>
+            <Button variant="outline" onClick={addHorizon} className="h-12 px-6">
               <Plus className="w-4 h-4 mr-2" />
               Add First Horizon
             </Button>
