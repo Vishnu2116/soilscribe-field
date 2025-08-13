@@ -156,8 +156,13 @@ export function loginUser(username: string): void {
   saveData(STORAGE_KEYS.USER, user);
 }
 
-// Logout user
+// Logout user (alias for compatibility)
 export function logoutUser(): void {
+  localStorage.removeItem(STORAGE_KEYS.USER);
+}
+
+// Clear user (alias for summary page)
+export function clearUser(): void {
   localStorage.removeItem(STORAGE_KEYS.USER);
 }
 
